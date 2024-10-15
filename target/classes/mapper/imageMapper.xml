@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="user.dao.ImageDAO">
+<!--파이미터값이 list일경우 forEach태그의 collection속성에 사용할수 있는 이름은 list 또는  collection이 가능하다 -->
+    <insert id="write" parameterType="java.util.List">
+    INSERT INTO userUpload (imageName, imageContent, imageFileName, imageOriginalFileName)
+        VALUES
+    	<foreach collection="list" item="dto" separator=",">
+    	 (#{dto.imageName}, #{dto.imageContent}, #{dto.imageFileName}, #{dto.imageOriginalFileName})
+    	</foreach>
+        
+    </insert>
+
+    <select id="list" resultType="user.bean.UserUploadDTO">
+    SELECT * FROM userUpload
+</select>
+<select id="imageView" resultType="user.bean.UserUploadDTO" parameterType="String">
+    SELECT * FROM userUpload where seq=#{seq}
+</select>
+<!-- 이미지 파일이름 얻기 -->
+<select id="getImageFileName" resultType="String" parameterType="Int">
+	 SELECT ImageFileName FROM userUpload where seq=#{seq}
+</select>
+
+<update id="uploadUpdate" parameterType="user.bean.UserUploadDTO">
+    UPDATE userUpload 
+    SET imageName = #{imageName}, 
+        imageContent = #{imageContent}, 
+        imageFileName = #{imageFileName}, 
+        imageOriginalFileName = #{imageOriginalFileName} 
+    WHERE seq = #{seq}
+</update>	
+<delete id="delete" parameterType="String">
+DELETE FROM userUpload
+        WHERE seq = #{seq}
+</delete>
+</mapper>

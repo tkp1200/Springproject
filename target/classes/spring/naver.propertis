@@ -1,0 +1,4 @@
+ncp.accessKey =ncp_iam_BPASKR282Ih6yye8uSf3
+ncp.secretKey=ncp_iam_BPKSKRY4OJoZyASJ4QsKeQNQ2zNyzKvgYx
+ncp.resionName= kr-standard
+ncp.endPoint=https://kr.object.ncloudstorage.com
